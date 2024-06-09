@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Light Bulb</title>
+
+<style>
+#img1{
+margin: 50px;
+}
+h1{
+    margin-left: 40px;
+}
+#btnOn
+{
+    width: 100px;
+    background-color: green;
+    margin: 20px;
+    color: white;
+
+}
+#btnOff
+{
+    width: 100px;
+    background-color:red;
+    margin: 20px;
+    color: white;
+
+}
+</style>
+
+<script>
+
+function turnOn()
+{
+
+    const myImg=document.getElementById("img1");
+    myImg.src="imgOn.png";
+
+}
+function turnOff()
+{
+
+    const myImg=document.getElementById("img1");
+    myImg.src="imgOff.png";
+
+}
+</script>
+
+  </head>
+  <body>
+
+ 
+
+    <h1>
+        Cick Buttons to turn the light on !
+    </h1>
+     <img  id="img1" src="imgOff.png">
+    <br>
+     <input type="button" value="on" id="btnOn" onclick="turnOn()">
+     <input type="button" value="off" id="btnOff" onclick="turnOff()">
+
+  </body>
+</html>

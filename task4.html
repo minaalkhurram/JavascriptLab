@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery Questions</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+      #image {
+    display: none; 
+    width: 200px;
+    height: auto;
+  }
+  .spacer {
+    height: 50px; 
+  }
+  .hover-element {
+    width: 200px;
+    height: 200px;
+    background-color: lightblue;
+    transition: background-color 0.3s ease;
+  }
+
+  .hover-element:hover {
+    background-color: lightgreen;
+  }
+
+  .hover-effect {
+    font-weight: bold;
+    color: red;
+  }
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5); 
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+body
+{
+    margin-left: 50px;
+}
+.tooltip {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}
+</style>
+</head>
+<body>
+    <div id="newpost">
+       <h1>Part 1</h1>
+        <h3>This is the hidden content.</h3>
+    </div>
+    <button id="toggleButton">Toggle Visibility</button>
+
+    <h1>Part 2</h1>
+    <button id="msgBtn">Message Button </button>
+
+    <h1>Part 3</h1>
+    <div style="width: 200px;height: 200px;background-color: aqua;" id="div1">
+    </div>
+    <button id="colorBtn">Click me !</button>
+
+
+    <h1>Part 4</h1>
+<form id="myForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <h1>Part 5</h1>
+  <div class="spacer"></div>
+  <img id="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg2qbcKeXAFJ_MguF77PkJ7wTT6upsWdFB29Y1XwmpEg&s" alt="Image">
+  
+  <h1>Part 6</h1>
+  <div class="hover-element">Hover over me!</div>
+
+  <h1>Part 7</h1>
+  <button id="openModalBtn">Open Modal</button>
+
+<div id="myModal" class="modal">
+
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>This is a modal window. Hello  World?</p>
+  </div>
+
+</div>
+
+<h1>Part 8</h1>
+
+<h3>List of Items</h3>
+
+<button id="sortBtn">Sort Alphabetically</button>
+
+<ul id="itemList">
+  <li>Apple</li>
+  <li>Kiwi</li>
+  <li>Orange</li>
+  <li>Strawberry</li>
+  <li>Banana</li>
+  <li>Pineapple</li>
+
+</ul>
+<h1>Party 9</h1>
+
+<button id="tooltipBtn" style="margin-bottom: 30px;">Hover Over Me</button>
+
+
+<div id="tooltip" class="tooltip">
+  This is a tooltip
+</div>
+  <script src="script.js"></script>
+  
+    <script>
+        $(document).ready(function() {
+            $("#toggleButton").click(function() {
+                $("#newpost").toggle(); // Toggles the visibility of the 'newpost' div
+            });
+      
+            $("#msgBtn").click(function() {
+               
+            
+                    alert("Thank you");
+        
+            });
+
+            $("#colorBtn").click(function(){
+
+                $("#div1").css("background-color", "rgb(255, 255, 0)");
+            });
+
+            $('#myForm').submit(function(event) {
+   
+    var emptyFields = $(this).find(':input[required]').filter(function() {
+      return $(this).val().trim() === '';
+    });
+
+    if (emptyFields.length > 0) {
+      // Display alert message
+      alert('Please fill out all required fields.');
+      
+      event.preventDefault();
+    }
+  });
+
+  $(window).scroll(function() {
+  
+    var fadeInPosition = 300; 
+
+    if ($(this).scrollTop() >= fadeInPosition) {
+      $('#image').fadeIn();
+    }
+  });
+
+
+  var element = document.querySelector('.hover-element');
+
+element.addEventListener('mouseenter', function() {
+  
+  this.classList.add('hover-effect');
+});
+
+element.addEventListener('mouseleave', function() {
+
+  this.classList.remove('hover-effect');
+});
+     
+        var modal = $("#myModal"); 
+  var btn = $("#openModalBtn"); 
+  var span = $(".close"); 
+
+  // When the user clicks on the button, open the modal
+  btn.click(function() {
+    modal.css("display", "block");
+  });
+
+  // When the user clicks on <span> (x), close the modal
+  span.click(function() {
+    modal.css("display", "none");
+  });
+
+  // When the user clicks anywhere outside of the modal, close it
+  $(window).click(function(event) {
+    if (event.target == modal[0]) {
+      modal.css("display", "none");
+    }
+  });
+
+  function sortList() {
+    var list = $("#itemList"); 
+    var items = list.children("li").get(); 
+
+    // Sort the array of list items alphabetically
+    items.sort(function(a, b) {
+      return $(a).text().localeCompare($(b).text());
+    });
+
+    list.empty();
+
+   
+    $.each(items, function(index, item) {
+      list.append(item);
+    });
+  }
+
+
+  $("#sortBtn").click(function() {
+    sortList(); 
+  });
+
+  $("#tooltipBtn").hover(function() {
+   
+    var btnPosition = $(this).offset();
+    var btnWidth = $(this).outerWidth();
+    var btnHeight = $(this).outerHeight();
+
+   
+    var tooltipLeft = btnPosition.left + btnWidth + 10;
+    var tooltipTop = btnPosition.top + (btnHeight / 2);
+
+   
+    $("#tooltip").css({ top: tooltipTop, left: tooltipLeft }).fadeIn();
+  }, function() {
+   
+    $("#tooltip").fadeOut();
+  });
+});
+    </script>
+</body>
+</html>
